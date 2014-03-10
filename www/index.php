@@ -11,6 +11,9 @@
 
    <div class="container">
 
+
+<?php echo $_SERVER['QUERY_STRING']; ?>
+<hr />
       <div id="temperature_chart" class="chart"></div>
       <hr />
       <div id="readtemp_log"></div>
@@ -19,16 +22,16 @@
       <script src="/pi/assets/js/highcharts.js"></script>
       <script type="text/javascript">
 <?php 
-$FARENHEIT = (array_key_exists('f',$_GET)) ? '?f=1' : ''; 
+$qstr = ( empty($_SERVER['QUERY_STRING']) ) ? '' : '?'.$_SERVER['QUERY_STRING'];
 ?>
          function chart_temperature() {
             var p = {};
-            $('#temperature_chart').load('/pi/get_readtemp_hc.php<?= $FARENHEIT ?>', p, function(str) {});
+            $('#temperature_chart').load('/pi/get_readtemp_hc.php<?= $qstr ?>', p, function(str) {});
          }
 
          function get_readtemp_tbl() {
             var p = {};
-            $('#readtemp_log').load('/pi/get_readtemp_tbl.php', p, function(str) {});
+            $('#readtemp_log').load('/pi/get_readtemp_tbl.php<?= $qstr ?>', p, function(str) {});
          }
 
          $(document).ready(function(){
