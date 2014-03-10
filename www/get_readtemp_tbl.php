@@ -3,7 +3,7 @@
 
    $ret = "<table cellspacing='0'>"
       . "<thead>"
-      . "<tr><th>YYYY-MM-DD HR:MI:SS</th><th>Temp deg C</th><th>% Humidity</th></tr>"
+      . "<tr><th>Sensor ID</th><th>YYYY-MM-DD HR:MI:SS</th><th>Temp deg C</th><th>% Humidity</th></tr>"
       . "</thead>"
       . "<tbody>";
 
@@ -13,7 +13,7 @@
    foreach ( $rows as $row ) {
       $d = explode('|', $row);
 
-      if ( empty($d[0]) ) {
+      if ( empty($d[1]) ) { # use col[1] since sensor 0 evaluates as empty
          continue;
       }
       # toggle row color
@@ -23,7 +23,7 @@
       } else {
          $class = '';
       }
-      $ret .= "<tr class='$class'><td>$d[0]</td><td>$d[1] &deg;C</td><td>$d[2]%</td></tr>";
+      $ret .= "<tr class='$class'><td>$d[0]</td><td>$d[1]</td><td>$d[2] &deg;C</td><td>$d[3]%</td></tr>";
    }
 
    $ret .= "</tbody>"

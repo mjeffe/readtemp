@@ -18,22 +18,24 @@
       <script src="/pi/assets/js/jquery.min.js"></script>
       <script src="/pi/assets/js/highcharts.js"></script>
       <script type="text/javascript">
-         <?php $FARENHEIT = (array_key_exists('f',$_GET)) ? '?f=1' : ''; ?>
-         function get_readtemp_tbl() {
-            var p = {};
-            $('#readtemp_log').load('/pi/get_readtemp_tbl.php', p, function(str) {});
-         }
-
+<?php 
+$FARENHEIT = (array_key_exists('f',$_GET)) ? '?f=1' : ''; 
+?>
          function chart_temperature() {
             var p = {};
             $('#temperature_chart').load('/pi/get_readtemp_hc.php<?= $FARENHEIT ?>', p, function(str) {});
          }
 
+         function get_readtemp_tbl() {
+            var p = {};
+            $('#readtemp_log').load('/pi/get_readtemp_tbl.php', p, function(str) {});
+         }
+
          $(document).ready(function(){
-            /*
+<?php if ( array_key_exists('t',$_GET) ) { ?>
             get_readtemp_tbl();
-            setInterval("get_readtemp_tbl()", 3000);
-             */
+            setInterval("get_readtemp_tbl()", 60000);
+<?php } ?>
             chart_temperature();
             setInterval("chart_temperature()", 60000);
          });
