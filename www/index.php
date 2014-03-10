@@ -4,37 +4,42 @@
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <title>server room temp sensor</title>
    <link href="assets/css/simple-little-table.css" rel="stylesheet">
+   <link href="assets/css/readtemp.css" rel="stylesheet">
 </head>
 
 <body>
-   <h1>Server Room Temp Sensors</h1>
-   <table cellspacing='0'>
-   <thead>
-      <tr><th>YYYY-MM-DD HR:MI:SS</th><th>Temp deg C</th><th>% Humidity</th></tr>
-   </thead>
-   <tbody>
-<?php
-   $data = file_get_contents('./readtemp.log');
-   $rows = explode("\n", $data);
-   $rownum = 0;
-   foreach ( $rows as $row ) {
-      $d = explode('|', $row);
 
-      if ( empty($d[0]) ) {
-         continue;
-      }
-      # toggle row color
-      $rownum++;
-      if ( ($rownum % 2) == 0 ) {
-         $class = 'even';
-      } else {
-         $class = '';
-      }
-      echo "<tr class='$class'><td>$d[0]</td><td>$d[1] &deg;C</td><td>$d[2]%</td></tr>";
-   }
-?>      
-   </tbody>
-   </table>
+   <div class="container">
+
+      <div id="temperature_chart" class="chart"></div>
+      <hr />
+      <div id="readtemp_log"></div>
+
+      <script src="/pi/assets/js/jquery.min.js"></script>
+      <script src="/pi/assets/js/highcharts.js"></script>
+      <script type="text/javascript">
+         <?php $FARENHEIT = (array_key_exists('f',$_GET)) ? '?f=1' : ''; ?>
+         function get_readtemp_tbl() {
+            var p = {};
+            $('#readtemp_log').load('/pi/get_readtemp_tbl.php', p, function(str) {});
+         }
+
+         function chart_temperature() {
+            var p = {};
+            $('#temperature_chart').load('/pi/get_readtemp_hc.php<?= $FARENHEIT ?>', p, function(str) {});
+         }
+
+         $(document).ready(function(){
+            /*
+            get_readtemp_tbl();
+            setInterval("get_readtemp_tbl()", 3000);
+             */
+            chart_temperature();
+            setInterval("chart_temperature()", 60000);
+         });
+
+      </script>
+   </div>  <!-- container -->
 </body>
 </html>
 
