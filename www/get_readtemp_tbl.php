@@ -7,8 +7,7 @@
       . "</thead>"
       . "<tbody>";
 
-   $data = file_get_contents('./readtemp.log');
-   $rows = explode("\n", $data);
+   $rows = explode("\n", file_get_contents('./readtemp.'.date("l").'.log'));
    $rownum = 0;
    foreach ( $rows as $row ) {
       $d = explode('|', $row);

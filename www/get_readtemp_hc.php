@@ -5,7 +5,7 @@
    $FARENHEIT = (array_key_exists('f',$_GET)) ? 1 : 0;
    $temps = array();
    $humid = array();
-   $rows = explode("\n", file_get_contents('./readtemp.log'));
+   $rows = explode("\n", file_get_contents('./readtemp.'.date("l").'.log'));
    $rownum = 0;
    foreach ( $rows as $row ) {
       $d = explode('|', $row);
@@ -41,7 +41,7 @@
                       text: 'ARC Server Room Temperature and Humidity'
                   },
                   subtitle: {
-                      text: 'Source: My Raspberry Pi'
+                     text: 'Source: <?= '/var/www/pi/readtemp.'.date("l").'.log' ?>'
                   },
                   xAxis: {
                      type: 'datetime',
