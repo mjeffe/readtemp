@@ -32,8 +32,6 @@ my $logdir = '/var/www/pi';
 # how often we should take a reading - in seconds
 my $read_interval = 60;
 
-# flush stdout after each write
-#$| = 1;
 
 #
 # prototypes
@@ -61,6 +59,7 @@ sub main() {
    my $current_log = get_log_name();
    my $LOG = undef;
    open($LOG, '>>', $current_log) || die "Unable to open log file $current_log\n";
+   select((select($LOG), $| = 1)[0]); # turn on autoflushing for this file handle
 
    while ($keep_running) {  # play like I'm a daemon...
 
@@ -70,6 +69,7 @@ sub main() {
          close($LOG) || die "Unable to close file $current_log\n";
          $current_log = $log;
          open($LOG, '>>', $current_log) || die "Unable to open log file $current_log\n";
+         select((select($LOG), $| = 1)[0]); # turn on autoflushing for this file handle
       }
 
       read_sensors($LOG);
@@ -93,6 +93,14 @@ sub get_log_name() {
 
 # ---------------------------------------------------------------------------
 # read the sensors and output to file
+#
+# readtemp returns sensor data as two integers with a newline:
+#
+#   temp humid\n
+#
+# our web interface expects the following output per line:
+#
+#    sensor_id|YYYY-MM-DD HH:MM:SS|temp|humid
 # ---------------------------------------------------------------------------
 sub read_sensors($) {
 
@@ -102,7 +110,6 @@ sub read_sensors($) {
    for ( my $i=0; $i < scalar @temp_sensor_pins; $i++ ) {
       my $data = '';
       do {
-         # sensor data is returned as "temp humid\n"
          $data = `$RT $temp_sensor_pins[$i]`;
          chomp($data);
          if ( $data ) {
