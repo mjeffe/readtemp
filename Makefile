@@ -12,5 +12,4 @@ readtemp: $(OBJ)
 	gcc -o $@ $^ $(CFLAGS)
 
 install:
-	@cp readtemp /usr/local/bin/
-	@cp readtemp.pl /usr/local/bin/
+	@cp readtemp readtempd /usr/local/bin/
