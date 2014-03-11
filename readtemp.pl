@@ -72,7 +72,6 @@ sub main() {
          open($LOG, '>>', $current_log) || die "Unable to open log file $current_log\n";
       }
 
-      print "writing to log $current_log\n";
       read_sensors($LOG);
       sleep($read_interval);  
    }
@@ -98,8 +97,6 @@ sub get_log_name() {
 sub read_sensors($) {
 
    my ($fh) = @_;;
-   my ($sec,$min,$hour,$day,$mon,$year,$wday,$yday,$isdst) = localtime;
-   $year += 1900;
 
    # read each sensor
    for ( my $i=0; $i < scalar @temp_sensor_pins; $i++ ) {
