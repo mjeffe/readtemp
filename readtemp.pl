@@ -30,7 +30,7 @@ my @temp_sensor_pins = (4,17);
 my $logdir = '/var/www/pi';
 
 # how often we should take a reading - in seconds
-my $read_interval = 60;
+my $read_interval = 30;
 
 
 #
@@ -117,7 +117,6 @@ sub read_sensors($) {
             $year += 1900;
             printf $fh("%d|%d-%02d-%02d %02d:%02d:%02d|%s\n", 
                $i,$year,$mon,$day,$hour,$min,$sec,join('|', split(/\s/, $data)));
-            flush($fh);
          } else {
             # DHT11 sensors only produce data every 2 seconds. If we didn't
             # catch it, try again next cycle
