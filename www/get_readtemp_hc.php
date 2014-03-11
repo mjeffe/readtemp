@@ -3,7 +3,7 @@
 
    
    $FARENHEIT = (array_key_exists('f',$_GET)) ? 1 : 0;
-   $SOURCE = (array_key_exists('source',$_GET)) ? $_GET['source'] : '/var/www/pi/readtemp.'.date("l").'.log';
+   $SOURCE = (array_key_exists('source',$_GET)) ? $_GET['source'] : '/var/www/pi/readtemp.'.date("Y-m").'.log';
    $temps = array();
    $humid = array();
    $rows = explode("\n", file_get_contents($SOURCE));

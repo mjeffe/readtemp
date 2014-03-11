@@ -7,7 +7,7 @@
       . "</thead>"
       . "<tbody>";
 
-   $SOURCE = (array_key_exists('source',$_GET)) ? $_GET['source'] : './readtemp.'.date("l").'.log';
+   $SOURCE = (array_key_exists('source',$_GET)) ? $_GET['source'] : './readtemp.'.date("Y-m").'.log';
    $rows = explode("\n", file_get_contents($SOURCE));
    $rownum = 0;
    foreach ( $rows as $row ) {

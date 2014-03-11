@@ -11,9 +11,6 @@
 
    <div class="container">
 
-
-<?php echo $_SERVER['QUERY_STRING']; ?>
-<hr />
       <div id="temperature_chart" class="chart"></div>
       <hr />
       <div id="readtemp_log"></div>
