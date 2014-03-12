@@ -1,4 +1,8 @@
+# ---------------------------------------------------------------------------
+# $Id$
+#
 # See http://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/software-install
+# ---------------------------------------------------------------------------
 CC = gcc
 #CFLAGS =  -std=gnu99 -I. -lbcm2835
 CFLAGS =  -std=c99 -I. -lbcm2835
