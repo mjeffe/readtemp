@@ -8,6 +8,10 @@
  *    git clone git://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
  *    cd Adafruit_DHT_Driver
  *
+ * This depends on the bcm2835 library for reading GPIO pins on RPi.
+ *
+ *    http://www.airspayce.com/mikem/bcm2835/index.html
+ *
  * Some helpful information about how the DHT11/22 works can be found here (some
  * of which I've included in comments throughout the code):
  *
