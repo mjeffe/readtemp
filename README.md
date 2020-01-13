@@ -14,3 +14,9 @@ It depends on the [bcm2835 library](http://www.airspayce.com/mikem/bcm2835/index
 
 The web publishing stuff uses [Hicharts](https://www.highcharts.com/) to display the data in a nice graph.
 
+## LICENSE
+
+This project is free software. You can redistribute it and/or modify it under the
+terms of the FreeBSD License. See header in main `readtemp.c` file.
+
+
